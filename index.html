@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>La charla debería terminar en: </title>
+<style>
+    body {
+        background-color: black; /* Fondo negro para todo el cuerpo del documento */
+        color: white; /* Texto blanco para mejorar la visibilidad en fondo negro */
+        font-family: Arial, sans-serif; /* Fuente más legible */
+    }
+    #time {
+        font-weight: bold; /* Texto en negrita */
+        font-size: 24px; /* Tamaño de fuente grande para fácil lectura */
+    }
+    .green { color: lime; } /* Color verde claro para alta visibilidad */
+    .yellow { color: yellow; }
+    .red { color: red; }
+</style>
+<script>
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    var interval = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        // Cambiar color del temporizador
+        if (minutes < 1) {
+            display.className = 'red'; // Menos de 1 minuto
+        } else if (minutes < 3) {
+            display.className = 'yellow'; // Menos de 3 minutos
+        } else if (minutes < 10) {
+            display.className = 'green'; // Menos de 5 minutos
+        } else {
+            display.className = ''; // Resto del tiempo sin color específico
+        }
+
+        if (--timer < 0) {
+            clearInterval(interval);
+            display.textContent = "00:00";
+            display.className = 'red'; // Termina en rojo
+            //window.location.href = "https://script.googleusercontent.com/a/macros/mercadolibre.cl/echo?user_content_key=B6GAEMBrAHzlAWsdtUMMAJ0vRIxDfgcX2r89-XU40gMyXckhS3l71HjmTkXmD4MnuuT9e5S5ATdidfnnfqY2KGj-yPaVJkBOOJmA1Yb3SEsKFZqtv3DaNYcMrmhZHmUMi80zadyHLKBB52SLhs2ftH_2PEfJy6n1Fc8vL5kKEi0df-rQu8d7FsJscgm0hTh3n2Goiwup7edziPQ_8TKY67Gw9l8-PneCM0LmzZ5V11tdbjt15q1K2p0txhRM9ameXCG8B5h4kh2agQEneoX2wQ&lib=M05hFbHuRiuJw2NkfrjRLWzFbU_PybjF1"; // Redirige al finalizar el tiempo
+        }
+    }, 1000);
+
+    // Redirige inmediatamente al iniciar el temporizador
+    
+}
+
+window.onload = function () {
+    var tenMinutes = 60 * 5,
+        display = document.querySelector('#time');
+    startTimer(tenMinutes, display);
+};
+</script>
+</head>
+<body>
+<div>La charla debería terminar en: <span id="time">05:00</span> minutos</div>
+</body>
+</html>
